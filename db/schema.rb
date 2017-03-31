@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170327015507) do
+ActiveRecord::Schema.define(version: 20170330210456) do
+
+  create_table "game_players", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "player_id"
+    t.integer  "ranking"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_game_players_on_game_id"
+    t.index ["player_id"], name: "index_game_players_on_player_id"
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.integer  "place_id"
+    t.integer  "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_games_on_group_id"
+    t.index ["place_id"], name: "index_games_on_place_id"
+  end
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
@@ -23,6 +42,14 @@ ActiveRecord::Schema.define(version: 20170327015507) do
     t.integer "group_id"
     t.index ["group_id"], name: "index_groups_users_on_group_id"
     t.index ["user_id"], name: "index_groups_users_on_user_id"
+  end
+
+  create_table "places", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_places_on_group_id"
   end
 
   create_table "players", force: :cascade do |t|
